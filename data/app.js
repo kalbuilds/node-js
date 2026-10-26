@@ -1,10 +1,14 @@
 const mysql = require("mysql2")
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
 app.listen(4000, () => {
     console.log("listening to port 4000")
 });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
 const connection = mysql.createConnection(
     {
@@ -70,4 +74,8 @@ app.get("/install", (req, res) => {
 
     res.end(message);
 
+});
+app.post("/add-products", (req, res) => {
+    console.log(req.body);
+    res.send("Data received successfully!");
 });
