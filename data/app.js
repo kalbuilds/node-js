@@ -30,8 +30,41 @@ app.get("/install", (req, res) => {
     PRIMARY KEY (product_id)
     )`;
 
+    let createProductDescription = `CREATE TABLE if not exists ProductDescription(
+    description_id int auto_increment,
+    product_id int(11) not null,
+    product_brief_description TEXT not null,
+    product_description TEXT not null,
+    PRIMARY KEY (description_id), 
+    FOREIGN KEY (product_id) REFERENCES
+    Products(product_id)
+    )`;
+
+
+
+
+
+    let createProductPrice = `CREATE TABLE if not exists ProductPrice(
+    price_id int auto_increment,
+    product_id int(11) not null,
+    starting_price TEXT not null,
+    price_range TEXT not null,
+    PRIMARY KEY (price_id), 
+    FOREIGN KEY (product_id) REFERENCES
+    Products(product_id)
+    )`;
+
+
+
+
 
     connection.query(createProducts, (err, results, fields) => {
+        if (err) console.log(err);
+    });
+    connection.query(createProductDescription, (err, results, fields) => {
+        if (err) console.log(err);
+    })
+    connection.query(createProductPrice, (err, results, fields) => {
         if (err) console.log(err);
     })
 
