@@ -78,4 +78,21 @@ app.get("/install", (req, res) => {
 app.post("/add-products", (req, res) => {
     console.log(req.body);
     res.send("Data received successfully!");
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
+    let price = req.body.StartPrice;
+    let range = req.body.priceRange;
+    let brief = req.body.briefDescription;
+    let full = req.body.fullDescription;
+
+    let sqlAddProducts = "INSERT INTO Products (product_name, product_email, product_password) VALUES (?, ?, ?)";
+
+    connection.query(sqlAddProducts, [name, email, password], (err, results) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send("Error inserting product");
+        }
+
+    });
 });
